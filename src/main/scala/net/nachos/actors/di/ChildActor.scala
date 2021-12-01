@@ -13,8 +13,12 @@ object ChildActor {
 }
 
 class ChildActor(randomNumberService: RandomNumberService)
-                (randomQueryInterval: FiniteDuration = 10.seconds)
   extends Actor with ActorLogging with Timers {
+
+  private[this] val randomQueryInterval = {
+    val actorConfig = context.system.settings.config.getConfig("net.nachos.actors.di.child-actor")
+    actorConfig.getDuration("random-query-interval").toMillis.millis
+  }
 
   override def preStart(): Unit = {
     super.preStart()

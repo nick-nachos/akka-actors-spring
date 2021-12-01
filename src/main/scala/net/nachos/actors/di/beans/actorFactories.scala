@@ -1,6 +1,6 @@
 package net.nachos.actors.di.beans
 
-import akka.actor.{ActorContext, ActorRef, ActorSystem, Props}
+import akka.actor.{ActorRef, ActorRefFactory, ActorSystem, Props}
 import net.nachos.actors.di
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
@@ -17,6 +17,6 @@ class ParentActorFactory @Autowired() (createChildActor: di.ParentActor.ChildAct
 class ChildActorFactory @Autowired() (randomNumberService: di.RandomNumberService)
   extends di.ParentActor.ChildActorFactory {
 
-  override def apply(context: ActorContext, name: String): ActorRef =
-    context.actorOf(Props(new di.ChildActor(randomNumberService)()), name)
+  override def apply(context: ActorRefFactory, name: String): ActorRef =
+    context.actorOf(Props(new di.ChildActor(randomNumberService)), name)
 }

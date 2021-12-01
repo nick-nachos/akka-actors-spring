@@ -5,6 +5,9 @@ version := "0.1"
 scalaVersion := "2.13.7"
 
 libraryDependencies ++= Seq(
+  "org.scalatest" %% "scalatest" % "3.2.10" % Test,
+  "org.mockito" %% "mockito-scala-scalatest" % "1.16.46" % Test,
+
   "com.typesafe.akka" %% "akka-actor" % "2.6.17",
   "com.typesafe.akka" %% "akka-testkit" % "2.6.17" % Test,
 

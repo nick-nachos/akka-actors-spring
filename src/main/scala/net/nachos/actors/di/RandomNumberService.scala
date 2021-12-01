@@ -1,6 +1,6 @@
 package net.nachos.actors.di
 
-import akka.actor.{Actor, ActorRef, ExtendedActorSystem}
+import akka.actor.{Actor, ActorLogging, ActorRef, ExtendedActorSystem}
 
 import scala.util.Random
 
@@ -30,7 +30,12 @@ object RandomNumberService {
       override val serviceActor: ActorRef = createSystemActor(actorSystem, "random")
     }
 
-    class RandomNumberServiceActor extends Actor {
+    class RandomNumberServiceActor extends Actor with ActorLogging {
+
+      override def preStart(): Unit = {
+        super.preStart()
+        log.info("Started random number generation actor.")
+      }
 
       override def receive: Receive = {
         case GetRandomNumber =>
